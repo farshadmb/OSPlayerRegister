@@ -155,7 +155,7 @@
                           let json = (NSDictionary *)responseObject;
                           
                           // parse response
-                          let success = [json[@"sucess"] boolValue];
+                          let success = [json[@"success"] boolValue];
                           let userId = json[@"id"];
                           
                           // check response has a valid userId otherwise

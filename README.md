@@ -35,6 +35,7 @@ $ pod install
 
 ### OSPlayerRegister
 
+
 ## Author
 
 farshadmb, info@ifarshad.me
@@ -44,7 +45,7 @@ farshadmb, info@ifarshad.me
 iOS 8 and later
 Xcode 9 and later
 
-> Programming in Swift? Try [SwiftExample](https://github.com/farshadmb/OSPlayerRegister/tree/master/SwiftExample) for a more conventional set of APIs.
+> Programming in Swift? Try [SwiftExample](https://github.com/farshadmb/OSPlayerRegister/tree/master/SwiftExample)
 
 ## License
 
