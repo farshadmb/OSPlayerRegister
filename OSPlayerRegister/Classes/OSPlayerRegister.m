@@ -103,7 +103,7 @@
  * @discussion Persist OneSignal's Data needed for work later
  */
 - (void)persistAsFrom {
- 
+    
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSString* strUserSubscriptionSetting = nil;
@@ -127,7 +127,7 @@
         completion(false,nil,[[NSError alloc] initWithDomain:NSURLErrorDomain code:NSURLErrorBadURL userInfo:@{NSLocalizedDescriptionKey : @"bad URL"}]);
         return;
     }
-        
+    
     // define userDefaults
     let userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -140,6 +140,15 @@
     // set deviceToken
     parameters[@"identifier"] = deviceToken;
     
+    if (self.userId) {
+        [self put:url playerId:self.userId parameters:parameters completion:completion];
+    }else{
+        [self post:url parameters:parameters completion:completion];
+    }
+    
+}
+
+- (void)post:(NSURL *)url parameters:(NSDictionary *)parameters completion:(OSPlayerRegisterRegistrationCompletion)completion {
     // execute request to register player
     __weak typeof(self) _weakSelf = self;
     [self.sessionManager POST:url.absoluteString
@@ -178,7 +187,34 @@
                       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                           completion(false,nil,error);
                       }];
+}
+
+-(void)put:(NSURL *)url playerId:(NSString *)playerId parameters:(NSDictionary *)parameters completion:(OSPlayerRegisterRegistrationCompletion)completion {
     
+    var requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"/%@",playerId] relativeToURL:url];
+    
+    __weak typeof(self) _weakSelf = self;
+    [self.sessionManager PUT:requestURL parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        __strong typeof(self) __strongSelf = _weakSelf;
+        
+        let json = (NSDictionary *)responseObject;
+        
+        // parse response
+        let statusCode = [(NSHTTPURLResponse *)[task response] statusCode];
+        let success = (statusCode >= 200 && statusCode <= 300);
+        
+        let userId = json[@"id"];
+        
+        
+        // persist data from server and device token
+        [__strongSelf persistAsFrom];
+        
+        completion(success,userId,nil);
+        
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         completion(false,nil,error);
+     }];
 }
 
 /*!
@@ -196,7 +232,7 @@
 /**
  * @discription build default parameters for onesignal
  * @discussion such as device model app bundle id and etc.
-
+ 
  * @return a mutable dictionary contains device info and application info
  */
 - (NSMutableDictionary *)defaultParamateres{
@@ -215,6 +251,9 @@
                    [NSNumber numberWithInt:0], @"device_type",
                    [[[UIDevice currentDevice] identifierForVendor] UUIDString],@"ad_id",
                    nil];
+    
+    if (build)
+        dataDic[@"game_version"] = build;
     
     if (deviceModel)
         dataDic[@"device_model"] = deviceModel;
@@ -245,6 +284,8 @@
             dataDic[@"carrier"] = carrierName;
         }
     }
+    
+    dataDic[@"country"] = @"IR";
     
     return dataDic;
 }
