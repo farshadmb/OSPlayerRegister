@@ -173,7 +173,7 @@
                               
                               __strongSelf.userId = userId;
                               __strongSelf.accpeted = true;
-                              __strongSelf.pushToken = deviceToken;
+                              __strongSelf.pushToken = parameters[@"identifier"];
                               
                               // persist data from server and device token
                               [__strongSelf persistAsFrom];
