@@ -17,12 +17,34 @@ OSPlayerRegister is available through [CocoaPods](https://cocoapods.org). To ins
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'OSPlayerRegister'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+target 'TargetName' do
+pod 'OSPlayerRegister', :git => 'https://github.com/farshadmb/OSPlayerRegister.git'
+end
 ```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+## Usage
+
+### OSPlayerRegister
 
 ## Author
 
-farshadmb, farshadm90@gmail.com
+farshadmb, info@ifarshad.me
+
+## Requirements
+
+iOS 8 and later
+Xcode 9 and later
+
+> Programming in Swift? Try [Alamofire](https://github.com/Alamofire/Alamofire) for a more conventional set of APIs.
 
 ## License
 
