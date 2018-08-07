@@ -1,0 +1,21 @@
+target 'OSPlayerRegister-Swift' do
+  
+  use_frameworks!
+  
+  pod 'OSPlayerRegister', :path => '../'
+  pod 'OneSignal'
+  
+  # Pods for OSPlayerRegister-Swift
+
+  target 'OSPlayerRegister-SwiftTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'OSPlayerRegister-SwiftUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+

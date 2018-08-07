@@ -1,0 +1,12 @@
+use_frameworks!
+
+target 'OSPlayerRegister_Example' do
+  pod 'OSPlayerRegister', :path => '../'
+  pod 'OneSignal'
+  
+  target 'OSPlayerRegister_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
