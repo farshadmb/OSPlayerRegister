@@ -44,7 +44,7 @@ farshadmb, info@ifarshad.me
 iOS 8 and later
 Xcode 9 and later
 
-> Programming in Swift? Try [Alamofire](https://github.com/Alamofire/Alamofire) for a more conventional set of APIs.
+> Programming in Swift? Try [SwiftExample](https://github.com/farshadmb/OSPlayerRegister/tree/master/SwiftExample) for a more conventional set of APIs.
 
 ## License
 
